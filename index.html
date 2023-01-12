@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora JS</title>
+    <style>
+        :root{
+            --colorBody--: #9581b3;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        body{
+            background:var(--colorBody--);
+            color: #3ba8db;
+        }
+
+        .conteiner{
+            width: 70%;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #3c4788;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 11px rgba(0, 0, 0, 0.7);
+            border-radius: 50px;
+        }
+        .input{
+            width: 80%;
+            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .input input{
+            width: 50%;
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            font-size: 25px;
+            font-weight: 600;
+            color: #000;
+        }
+        .input input:focus{
+            /* border: 5px solid rgb(59, 113, 173); */
+            /* Quitamos el borde que trae por default nuestro input */
+            outline: none;
+        }
+        .input input:focus{
+            border: 3px solid rgb(29, 92, 165);  
+        }
+
+        /* .botones button:focus{
+            outline: none;
+        } */
+
+        .botones{
+            width: 80%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .botones button{
+            /* overflow: auto; */
+            width: 25%;
+            height: 50px;
+            margin: 10px;
+            cursor: pointer;
+            /* display: flex;
+            flex-direction: row wrap; */
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 16px;
+            border-radius: 10px;
+            background-color: #3ba8db;
+            color: #fff;
+            border: 0;
+            transition: all 0.5s linear;
+        }
+        .botones button:hover{
+            background: #1b5e85;
+            transform: scale(1.1);
+        }
+        .resultado{
+            width: 80%;
+            /* border: 1px solid #000; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .resultado p{
+            margin-top: 10px;
+            /* border: 1px solid #000; */
+            color: #fff;
+            font-size: 45px;
+            font-weight: 700;
+        }
+        .logo{
+            width: 80%;
+            height: 50px;
+            /* border: 1px solid #000; */
+            display: flex;
+            /* border: 1px solid #000; */
+            justify-content: flex-start;
+
+        }
+        .limpiar{
+            width: 80%;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .limpiar button{
+            cursor: pointer;
+            width: 15%;
+            padding: 8px;
+            background-color: #3ba8db;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            border: 0;
+        }
+       
+
+        @media screen  and (max-width:900px){
+            .botones button {
+                font-size: 10px
+            }
+        }
+
+        @media screen and (max-width:800px) {
+            .botones{
+                display: flex;
+                flex-direction: column;
+            }
+            .botones button{
+                font-size: 22px;
+                justify-content: center;
+                width: 90%;
+            }
+            .logo{
+                display: flex;
+                justify-content: center;
+                margin-top: 15px;
+            }
+        }
+
+        @media screen and (max-width:600px) {
+            .conteiner{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="conteiner">
+        <div class = "input">
+            <input type="number" id="numero1" autofocus placeholder="0.0">
+            <input type="number" id="numero2" placeholder="0.0">
+        </div>
+        <div class="botones" id="btns">
+            <button id="suma">Sumar</button>
+            <button id="resta">Restar</button>
+            <button id="multiplicacion">Multiplicar</button>
+            <button id="division">Dividir</button>
+        </div>
+
+        <div class="resultado">
+            <p id="result">-</p>
+        </div>
+        <!-- <div class="limpiar">
+            <button type="button" id="limpiar">Enviar</button>
+        </div> -->
+
+        <div class="logo">
+            <a href="https://github.com/alejandro-coreno" target="_blank"><img src="https://img.icons8.com/ios-filled/50/000000/github.png" /></a>
+        </div>
+        
+    </div>
+
+
+    <script>
+        // var limpiar = document.getElementById("limpiar");
+        // var numero1 = parseFloat(document.getElementById("numero1").value);
+        // var numero2 = parseFloat(document.getElementById("numero2").value);
+        // var resultado = document.getElementById("result");
+
+        var operaciones = function(e) {
+            // Le indicamos con el parseFloat se convierte a numero decimal y obtenemos el valor con value.
+            var numero1 = document.getElementById("numero1").value;
+            var numero2 = document.getElementById("numero2").value;
+            var resultado = document.getElementById("result");
+            
+            // Le indicamos con el elemento e.target.id el elemento que se esta accionando 
+            var opcion = e.target.id
+            var operacion;
+            //Condicioamos para saber que caso entra
+
+            switch (opcion) {
+                case "suma":
+                    if (numero1 ==  0 && numero2 == 0) {
+                        return resultado.innerText = "Campos vacios"; 
+                        // return alert("Campos Vacios");    
+                    }
+                    else{
+                        operacion = parseFloat(numero1) + parseFloat(numero2);
+                        break;
+                    }
+                case "resta":
+                    if(numero1 == 0 || numero2 == 0){
+                        return resultado.innerHTML = "Campos vacios resta";
+                    }
+                    
+                    operacion = numero1 - numero2;
+                    break;
+                
+                case "multiplicacion":
+                    operacion = numero1 * numero2;
+                    break;
+                case "division":
+                   if (numero2 == 0) {
+                        return resultado.innerText = "No se puede";
+                        break;
+                   }else{
+                        operacion = numero1 / numero2;
+                   }
+            }
+            resultado.innerHTML = operacion.toFixed(2);
+        }
+
+        // function clear() {
+        //     numero1.innerHTML = "";
+        //     numero2.innerHTML = "";
+        // }
+        //Obtenemos el evento en cada boton.
+        var boton = document.getElementById("btns");
+        boton.addEventListener("click",operaciones); 
+        // limpiar.addEventListener("click",clear);
+    </script>
+</body>
+</html>
